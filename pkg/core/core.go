@@ -2,25 +2,20 @@ package core
 
 import (
 	"encoding/json"
+	"log/slog"
 	"net/url"
-
-	"github.com/verystar/jenkins-client/pkg/util"
-	"go.uber.org/zap"
 )
 
-var Logger *zap.Logger
+var Logger *slog.Logger
 
 // SetLogger set a global Logger
-func SetLogger(zapLogger *zap.Logger) {
+func SetLogger(zapLogger *slog.Logger) {
 	Logger = zapLogger
 }
 
 func init() {
 	if Logger == nil {
-		var err error
-		if Logger, err = util.InitLogger("warn"); err != nil {
-			panic(err)
-		}
+		Logger = slog.Default()
 	}
 }
 

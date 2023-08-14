@@ -8,9 +8,9 @@ import (
 	"os"
 
 	"github.com/verystar/jenkins-client/pkg/core"
+	"go.uber.org/mock/gomock"
 
-	"github.com/golang/mock/gomock"
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 )

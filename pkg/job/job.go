@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log/slog"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -17,7 +18,6 @@ import (
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 	"github.com/verystar/jenkins-client/pkg/core"
 
-	"go.uber.org/zap"
 	"moul.io/http2curl"
 )
 
@@ -335,7 +335,7 @@ func (q *Client) Log(jobName string, history int, start int64) (jobLog Log, err 
 	}
 
 	if curlCmd, curlErr := http2curl.GetCurlCommand(req); curlErr == nil {
-		core.Logger.Debug("HTTP request as curl", zap.String("cmd", curlCmd.String()))
+		core.Logger.Debug("HTTP request as curl", slog.String("cmd", curlCmd.String()))
 	}
 
 	if response, err = client.Do(req); err == nil {

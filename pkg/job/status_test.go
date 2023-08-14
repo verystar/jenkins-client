@@ -1,10 +1,10 @@
 package job
 
 import (
-	"github.com/golang/mock/gomock"
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
+	"go.uber.org/mock/gomock"
 )
 
 var _ = Describe("status test", func() {

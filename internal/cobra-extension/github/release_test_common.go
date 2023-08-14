@@ -2,10 +2,11 @@ package github
 
 import (
 	"fmt"
-	"github.com/google/go-github/v29/github"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+
+	"github.com/google/go-github/v29/github"
 )
 
 // PrepareForGetJCLIAsset only for test

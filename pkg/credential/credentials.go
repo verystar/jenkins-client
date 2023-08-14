@@ -3,13 +3,12 @@ package credential
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"net/url"
 
 	"github.com/verystar/jenkins-client/pkg/core"
 	"github.com/verystar/jenkins-client/pkg/util"
-
-	"go.uber.org/zap"
 )
 
 // CredentialsManager hold the info of credentials client
@@ -46,7 +45,7 @@ func (c *CredentialsManager) DeleteInFolder(folder, id string) (err error) {
 // Create create a credential in Jenkins
 func (c *CredentialsManager) Create(store, credential string) (err error) {
 	api := fmt.Sprintf("/credentials/store/%s/domain/_/createCredentials", store)
-	core.Logger.Debug("create credential", zap.String("api", api), zap.String("payload", credential))
+	core.Logger.Debug("create credential", slog.String("api", api), slog.String("payload", credential))
 
 	formData := url.Values{}
 	formData.Add("json", fmt.Sprintf(`{"credentials": %s}`, credential))

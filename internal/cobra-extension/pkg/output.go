@@ -3,11 +3,12 @@ package pkg
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/spf13/cobra"
-	"gopkg.in/yaml.v2"
 	"io"
 	"reflect"
 	"strings"
+
+	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v2"
 )
 
 // OutputOption represent the format of output

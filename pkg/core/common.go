@@ -8,16 +8,16 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"log/slog"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
 
 	"github.com/verystar/jenkins-client/pkg/util"
-	"go.uber.org/zap"
 	"moul.io/http2curl"
 
-	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
+	httpdownloader "github.com/linuxsuren/http-downloader/pkg/net"
 	ext "github.com/verystar/jenkins-client/internal/cobra-extension/version"
 )
 
@@ -82,7 +82,7 @@ func (j *JenkinsCore) GetClient() (client *http.Client) {
 func (j *JenkinsCore) ProxyHandle(request *http.Request) {
 	if j.ProxyAuth != "" {
 		basicAuth := "Basic " + base64.StdEncoding.EncodeToString([]byte(j.ProxyAuth))
-		Logger.Debug("setting proxy for HTTP request", zap.String("header", basicAuth))
+		Logger.Debug("setting proxy for HTTP request", slog.String("header", basicAuth))
 		request.Header.Add("Proxy-Authorization", basicAuth)
 	}
 }
@@ -298,7 +298,7 @@ func (j *JenkinsCore) ErrorHandle(statusCode int, data []byte) (err error) {
 		err = fmt.Errorf("unexpected status code: %d", statusCode)
 	}
 
-	Logger.Debug("get response", zap.String("data", string(data)))
+	Logger.Debug("get response", slog.String("data", string(data)))
 	return
 }
 
@@ -351,7 +351,7 @@ func (j *JenkinsCore) RequestWithResponse(method, api string, headers map[string
 	client := j.GetClient()
 
 	if curlCmd, curlErr := http2curl.GetCurlCommand(req); curlErr == nil {
-		Logger.Debug("HTTP request as curl", zap.String("cmd", curlCmd.String()))
+		Logger.Debug("HTTP request as curl", slog.String("cmd", curlCmd.String()))
 	}
 	return client.Do(req)
 }
@@ -370,7 +370,7 @@ func (j *JenkinsCore) Request(method, api string, headers map[string]string, pay
 		return
 	}
 
-	Logger.Debug("send HTTP request", zap.String("URL", requestURL), zap.String("method", method))
+	Logger.Debug("send HTTP request", slog.String("URL", requestURL), slog.String("method", method))
 	if req, err = http.NewRequest(method, requestURL, payload); err != nil {
 		return
 	}
@@ -386,7 +386,7 @@ func (j *JenkinsCore) Request(method, api string, headers map[string]string, pay
 	}
 
 	if curlCmd, curlErr := http2curl.GetCurlCommand(req); curlErr == nil {
-		Logger.Debug("HTTP request as curl", zap.String("cmd", curlCmd.String()))
+		Logger.Debug("HTTP request as curl", slog.String("cmd", curlCmd.String()))
 	}
 
 	client := j.GetClient()

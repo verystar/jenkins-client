@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/stretchr/testify/assert"
 )
@@ -21,7 +21,7 @@ func TestShellProcessSuccess(t *testing.T) {
 	if os.Getenv("GO_TEST_PROCESS") != "1" {
 		return
 	}
-	//os.Exit(0)
+	// os.Exit(0)
 }
 
 func TestFakeLookPath(t *testing.T) {

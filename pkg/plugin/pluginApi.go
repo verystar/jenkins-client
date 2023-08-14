@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"log/slog"
 	"net/http"
 	"path"
 	"strings"
@@ -15,7 +16,6 @@ import (
 	"github.com/verystar/jenkins-client/pkg/util"
 
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
-	"go.uber.org/zap"
 )
 
 // API represents a plugin API
@@ -131,7 +131,7 @@ func (d *API) DownloadPlugins(names []string) (err error) {
 	core.Logger.Info("start to collect plugin dependencies...")
 	plugins := make([]Info, 0)
 	for _, name := range names {
-		core.Logger.Debug("start to collect dependency", zap.String("plugin", name))
+		core.Logger.Debug("start to collect dependency", slog.String("plugin", name))
 
 		if !strings.Contains(name, "@") {
 			plugins = append(plugins, d.collectDependencies(strings.ToLower(name))...)
@@ -150,16 +150,16 @@ func (d *API) DownloadPlugins(names []string) (err error) {
 		}
 	}
 
-	core.Logger.Info("ready to download plugins", zap.Int("total", len(plugins)))
+	core.Logger.Info("ready to download plugins", slog.Int("total", len(plugins)))
 	for i, plugin := range plugins {
 		core.Logger.Info("start to download plugin",
-			zap.String("name", plugin.Name),
-			zap.String("version", plugin.Version),
-			zap.String("url", plugin.URL),
-			zap.Int("number", i))
+			slog.String("name", plugin.Name),
+			slog.String("version", plugin.Version),
+			slog.String("url", plugin.URL),
+			slog.Int("number", i))
 
 		if err = d.download(plugin.URL, plugin.Name); err != nil {
-			core.Logger.Error("download plugin error", zap.String("name", plugin.Name), zap.Error(err))
+			core.Logger.Error("download plugin error", slog.String("name", plugin.Name), slog.Any("error", err))
 			break
 		}
 	}
@@ -169,7 +169,7 @@ func (d *API) DownloadPlugins(names []string) (err error) {
 func (d *API) getMirrorURL(url string) (mirror string) {
 	mirror = url
 	if d.UseMirror && d.MirrorURL != "" {
-		core.Logger.Debug("replace with mirror", zap.String("original", url))
+		core.Logger.Debug("replace with mirror", slog.String("original", url))
 		mirror = strings.ReplaceAll(url, "https://updates.jenkins-ci.org/download/", d.MirrorURL)
 	}
 	return
@@ -177,7 +177,7 @@ func (d *API) getMirrorURL(url string) (mirror string) {
 
 func (d *API) download(url string, name string) (err error) {
 	url = d.getMirrorURL(url)
-	core.Logger.Info("prepare to download", zap.String("name", name), zap.String("url", url))
+	core.Logger.Info("prepare to download", slog.String("name", name), slog.String("url", url))
 
 	downloader := httpdownloader.HTTPDownloader{
 		RoundTripper:   d.RoundTripper,
@@ -203,7 +203,7 @@ func (d *API) GetPlugin(name string) (plugin *Info, err error) {
 	}
 
 	pluginAPI := fmt.Sprintf("https://plugins.jenkins.io/api/plugin/%s", name)
-	core.Logger.Debug("fetch data from plugin API", zap.String("url", pluginAPI))
+	core.Logger.Debug("fetch data from plugin API", slog.String("url", pluginAPI))
 
 	var resp *http.Response
 	if resp, err = cli.Get(pluginAPI); err == nil {
@@ -256,7 +256,7 @@ func (d *API) BatchSearchPlugins(pluginNames string) (plugins []Info, err error)
 	}
 
 	pluginAPI := fmt.Sprintf("https://plugins.jenkins.io/api/plugins/?q=%s&page=1&limit=1000", pluginNames)
-	core.Logger.Debug("fetch data from plugin API", zap.String("url", pluginAPI))
+	core.Logger.Debug("fetch data from plugin API", slog.String("url", pluginAPI))
 
 	var resp *http.Response
 	if resp, err = cli.Get(pluginAPI); err == nil {

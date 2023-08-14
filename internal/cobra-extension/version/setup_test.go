@@ -3,14 +3,11 @@ package version_test
 import (
 	"testing"
 
-	"github.com/onsi/ginkgo/reporters"
-
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
 func TestCmd(t *testing.T) {
 	RegisterFailHandler(Fail)
-	junitReporter := reporters.NewJUnitReporter("test-cmd-version.xml")
-	RunSpecsWithDefaultAndCustomReporters(t, "version", []Reporter{junitReporter})
+	RunSpecs(t, "version")
 }

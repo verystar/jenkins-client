@@ -2,8 +2,9 @@ package version
 
 import (
 	"fmt"
-	"github.com/google/go-github/v29/github"
 	"net/http"
+
+	"github.com/google/go-github/v29/github"
 )
 
 // PrintOption is the version option

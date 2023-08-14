@@ -1,14 +1,13 @@
 package pkg
 
 import (
-	"github.com/onsi/ginkgo"
-	"github.com/onsi/ginkgo/reporters"
-	"github.com/onsi/gomega"
 	"testing"
+
+	"github.com/onsi/ginkgo/v2"
+	"github.com/onsi/gomega"
 )
 
 func TestAll(t *testing.T) {
 	gomega.RegisterFailHandler(ginkgo.Fail)
-	reporter := reporters.NewJUnitReporter("test.xml")
-	ginkgo.RunSpecsWithDefaultAndCustomReporters(t, "", []ginkgo.Reporter{reporter})
+	ginkgo.RunSpecs(t, "test.xml")
 }

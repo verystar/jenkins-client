@@ -9,14 +9,14 @@ import (
 	"reflect"
 	"testing"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/verystar/jenkins-client/pkg/core"
 
 	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 
-	"github.com/golang/mock/gomock"
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
+	"go.uber.org/mock/gomock"
 )
 
 var _ = Describe("job test", func() {

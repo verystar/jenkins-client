@@ -3,10 +3,11 @@ package pkg
 import (
 	"bytes"
 	"fmt"
-	"github.com/mitchellh/go-homedir"
-	"github.com/spf13/cobra"
 	"os"
 	"path"
+
+	"github.com/mitchellh/go-homedir"
+	"github.com/spf13/cobra"
 )
 
 // completionOptions is the option of completion command

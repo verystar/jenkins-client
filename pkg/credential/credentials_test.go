@@ -6,13 +6,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/golang/mock/gomock"
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/stretchr/testify/assert"
 	"github.com/verystar/jenkins-client/pkg/credential"
 	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 	"github.com/verystar/jenkins-client/pkg/util"
+	"go.uber.org/mock/gomock"
 )
 
 var _ = Describe("job test", func() {

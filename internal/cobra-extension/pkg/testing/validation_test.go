@@ -1,8 +1,9 @@
 package testing
 
 import (
-	"github.com/spf13/cobra"
 	"testing"
+
+	"github.com/spf13/cobra"
 )
 
 func TestFlagsValidation_Valid(t *testing.T) {
