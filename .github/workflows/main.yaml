@@ -42,16 +42,8 @@ jobs:
       - name: golint
         uses: golangci/golangci-lint-action@v3.2.0
         with:
-          version: v1.42.1
+          version: v1.54.1
           skip-build-cache: true
           skip-pkg-cache: true
       - name: test
         run: make test
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: cover.out
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: true
