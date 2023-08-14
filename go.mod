@@ -3,7 +3,6 @@ module github.com/verystar/jenkins-client
 go 1.21
 
 require (
-	github.com/Pallinder/go-randomdata v1.2.0
 	github.com/google/go-github/v29 v29.0.3
 	github.com/linuxsuren/http-downloader v0.0.89
 	github.com/linuxsuren/unstructured v0.0.1

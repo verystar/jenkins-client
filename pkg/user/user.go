@@ -7,12 +7,12 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/verystar/jenkins-client/pkg/core"
 
 	"github.com/verystar/jenkins-client/pkg/util"
 
-	"github.com/Pallinder/go-randomdata"
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 )
 
@@ -104,7 +104,7 @@ func (q *Client) Create(username, password string) (user *ForCreate, err error) 
 // CreateToken create a token in Jenkins
 func (q *Client) CreateToken(targetUser, newTokenName string) (status *Token, err error) {
 	if newTokenName == "" {
-		newTokenName = fmt.Sprintf("jcli-%s", randomdata.SillyName())
+		newTokenName = fmt.Sprintf("jcli-%s", time.Now().Format("20060102"))
 	}
 
 	if targetUser == "" {
