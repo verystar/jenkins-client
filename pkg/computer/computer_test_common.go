@@ -8,9 +8,9 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/core"
+	"github.com/verystar/jenkins-client/pkg/core"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/mock/mhttp"
+	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 )

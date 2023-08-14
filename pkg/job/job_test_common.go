@@ -9,9 +9,9 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/core"
+	"github.com/verystar/jenkins-client/pkg/core"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/mock/mhttp"
+	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 )
@@ -226,32 +226,32 @@ func PrepareEmptyItems(roundTripper *mhttp.MockRoundTripper, rootURL, name, kind
 func PrepareForDisableJob(roundTripper *mhttp.MockRoundTripper, rootURL, name, user, token string) {
 	request, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("%s/job/%s/disable", rootURL, name), nil)
 	core.PrepareCommonPost(request, "", roundTripper, user, token, rootURL)
-	//response := &http.Response{
+	// response := &http.Response{
 	//	StatusCode: 200,
 	//	Request:    request,
 	//	Body:       ioutil.NopCloser(bytes.NewBufferString(``)),
-	//}
-	//roundTripper.EXPECT().
+	// }
+	// roundTripper.EXPECT().
 	//	RoundTrip(NewRequestMatcher(request)).Return(response, nil)
-	//if user != "" && token != "" {
+	// if user != "" && token != "" {
 	//	request.SetBasicAuth(user, token)
-	//}
+	// }
 }
 
 // PrepareForEnableJob only for test
 func PrepareForEnableJob(roundTripper *mhttp.MockRoundTripper, rootURL, name, user, token string) {
 	request, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("%s/job/%s/enable", rootURL, name), nil)
 	core.PrepareCommonPost(request, "", roundTripper, user, token, rootURL)
-	//response := &http.Response{
+	// response := &http.Response{
 	//	StatusCode: 200,
 	//	Request:    request,
 	//	Body:       ioutil.NopCloser(bytes.NewBufferString(``)),
-	//}
-	//roundTripper.EXPECT().
+	// }
+	// roundTripper.EXPECT().
 	//	RoundTrip(NewRequestMatcher(request)).Return(response, nil)
-	//if user != "" && token != "" {
+	// if user != "" && token != "" {
 	//	request.SetBasicAuth(user, token)
-	//}
+	// }
 }
 
 // PrepareForCreatePipelineJob only for test

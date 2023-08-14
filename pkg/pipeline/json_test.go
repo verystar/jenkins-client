@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/util"
+	"github.com/verystar/jenkins-client/pkg/util"
 )
 
 func TestFindGit(t *testing.T) {

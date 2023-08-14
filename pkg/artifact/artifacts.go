@@ -5,8 +5,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/core"
-	"github.com/jenkins-zh/jenkins-client/pkg/job"
+	"github.com/verystar/jenkins-client/pkg/core"
+	"github.com/verystar/jenkins-client/pkg/job"
 )
 
 // Artifact represents the artifacts from Jenkins build

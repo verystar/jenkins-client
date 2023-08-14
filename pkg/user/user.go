@@ -8,9 +8,9 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/core"
+	"github.com/verystar/jenkins-client/pkg/core"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/util"
+	"github.com/verystar/jenkins-client/pkg/util"
 
 	"github.com/Pallinder/go-randomdata"
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"

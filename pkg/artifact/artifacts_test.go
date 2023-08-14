@@ -8,7 +8,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/mock/mhttp"
+	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 )
 
 var _ = Describe("artifacts test", func() {

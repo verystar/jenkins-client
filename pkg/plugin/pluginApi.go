@@ -10,9 +10,9 @@ import (
 	"path"
 	"strings"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/core"
+	"github.com/verystar/jenkins-client/pkg/core"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/util"
+	"github.com/verystar/jenkins-client/pkg/util"
 
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 	"go.uber.org/zap"

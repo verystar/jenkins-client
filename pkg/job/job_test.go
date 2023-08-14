@@ -9,11 +9,11 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/core"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.com/verystar/jenkins-client/pkg/core"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/mock/mhttp"
+	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 
 	"github.com/golang/mock/gomock"
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"

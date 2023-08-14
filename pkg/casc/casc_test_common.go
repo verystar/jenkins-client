@@ -8,9 +8,9 @@ import (
 
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/core"
+	"github.com/verystar/jenkins-client/pkg/core"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/mock/mhttp"
+	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 )
 
 // PrepareForSASCReload only for test

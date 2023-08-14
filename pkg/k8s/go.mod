@@ -1,9 +1,9 @@
-module github.com/jenkins-zh/jenkins-client/pkg/k8s
+module github.com/verystar/jenkins-client/pkg/k8s
 
 go 1.18
 
 require (
-	github.com/jenkins-zh/jenkins-client v0.0.13
+	github.com/verystar/jenkins-client v0.0.13
 	github.com/linuxsuren/unstructured v0.0.1
 	github.com/stretchr/testify v1.7.0
 	k8s.io/api v0.18.6

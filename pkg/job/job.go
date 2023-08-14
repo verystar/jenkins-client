@@ -14,8 +14,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/core"
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
+	"github.com/verystar/jenkins-client/pkg/core"
 
 	"go.uber.org/zap"
 	"moul.io/http2curl"

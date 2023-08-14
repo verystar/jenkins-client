@@ -13,12 +13,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/util"
+	"github.com/verystar/jenkins-client/pkg/util"
 	"go.uber.org/zap"
 	"moul.io/http2curl"
 
-	ext "github.com/linuxsuren/cobra-extension/version"
 	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
+	ext "github.com/verystar/jenkins-client/internal/cobra-extension/version"
 )
 
 // language is for global Accept Language
@@ -133,7 +133,7 @@ func (j *JenkinsCore) GetCrumb() (crumbIssuer *JenkinsCrumb, err error) {
 			err = json.Unmarshal(data, &crumbIssuer)
 		} else if statusCode == 404 {
 			// return 404 if Jenkins does no have crumb
-			//err = fmt.Errorf("crumb is disabled")
+			// err = fmt.Errorf("crumb is disabled")
 		} else {
 			err = fmt.Errorf("unexpected status code: %d", statusCode)
 		}

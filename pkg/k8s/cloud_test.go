@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/util"
+	"github.com/verystar/jenkins-client/pkg/util"
 
 	"github.com/stretchr/testify/assert"
 	v1 "k8s.io/api/core/v1"

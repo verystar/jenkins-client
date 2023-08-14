@@ -7,12 +7,12 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/jenkins-zh/jenkins-client/pkg/credential"
-	"github.com/jenkins-zh/jenkins-client/pkg/mock/mhttp"
-	"github.com/jenkins-zh/jenkins-client/pkg/util"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"github.com/stretchr/testify/assert"
+	"github.com/verystar/jenkins-client/pkg/credential"
+	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
+	"github.com/verystar/jenkins-client/pkg/util"
 )
 
 var _ = Describe("job test", func() {

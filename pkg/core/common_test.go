@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/mock/mhttp"
 	"github.com/stretchr/testify/assert"
+	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 
 	"github.com/golang/mock/gomock"
 	. "github.com/onsi/ginkgo"
@@ -128,14 +128,14 @@ var _ = Describe("common test", func() {
 		})
 
 		It("with error from server", func() {
-			//requestCrumb, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("%s%s", jenkinsCore.URL, "/crumbIssuer/api/json"), nil)
-			//responseCrumb := &http.Response{
+			// requestCrumb, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("%s%s", jenkinsCore.URL, "/crumbIssuer/api/json"), nil)
+			// responseCrumb := &http.Response{
 			//	StatusCode: 500,
 			//	Proto:      "HTTP/1.1",
 			//	Request:    requestCrumb,
 			//	Body:       ioutil.NopCloser(bytes.NewBufferString("")),
-			//}
-			//roundTripper.EXPECT().
+			// }
+			// roundTripper.EXPECT().
 			//	RoundTrip(NewRequestMatcher(requestCrumb)).Return(responseCrumb, nil)
 			PrepareForGetIssuerWith500(roundTripper, jenkinsCore.URL, "", "")
 

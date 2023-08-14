@@ -7,10 +7,9 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
-
 	"strings"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/core"
+	"github.com/verystar/jenkins-client/pkg/core"
 )
 
 const (

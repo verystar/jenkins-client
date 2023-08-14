@@ -14,10 +14,10 @@ import (
 	"time"
 
 	"github.com/golang/mock/gomock"
-	"github.com/jenkins-zh/jenkins-client/pkg/core"
-	"github.com/jenkins-zh/jenkins-client/pkg/mock/mhttp"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.com/verystar/jenkins-client/pkg/core"
+	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 )
 
 //go:embed testdata/PipelineRuns.json

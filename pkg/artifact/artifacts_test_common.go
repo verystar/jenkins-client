@@ -6,10 +6,10 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/core"
-	"github.com/jenkins-zh/jenkins-client/pkg/job"
+	"github.com/verystar/jenkins-client/pkg/core"
+	"github.com/verystar/jenkins-client/pkg/job"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/mock/mhttp"
+	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 )
 
 // PrepareGetArtifacts only for test

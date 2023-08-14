@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"path/filepath"
 
-	"github.com/jenkins-zh/jenkins-client/pkg/mock/mhttp"
+	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 )
 
 // PrepareForEmptyAvaiablePluginList only for test

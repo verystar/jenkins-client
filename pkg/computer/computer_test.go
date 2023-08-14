@@ -2,10 +2,10 @@ package computer_test
 
 import (
 	"github.com/golang/mock/gomock"
-	"github.com/jenkins-zh/jenkins-client/pkg/computer"
-	"github.com/jenkins-zh/jenkins-client/pkg/mock/mhttp"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.com/verystar/jenkins-client/pkg/computer"
+	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 )
 
 var _ = Describe("computer test", func() {
