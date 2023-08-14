@@ -1,4 +1,4 @@
-[![Workflow for Jenkins Client](https://github.com/verystar/jenkins-client/actions/workflows/main.yaml/badge.svg)](https://github.com/verystar/jenkins-client/actions/workflows/main.yaml)
+[![build](https://github.com/verystar/jenkins-client/actions/workflows/main.yaml/badge.svg)](https://github.com/verystar/jenkins-client/actions/workflows/main.yaml)
 
 fork https://github.com/jenkins-zh/jenkins-client
 
