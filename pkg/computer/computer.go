@@ -10,8 +10,6 @@ import (
 	"strings"
 
 	"github.com/verystar/jenkins-client/pkg/core"
-
-	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 )
 
 // Client is client for operate computers
@@ -94,10 +92,10 @@ func (c *Client) Create(name string) (err error) {
 	}
 	payload := strings.NewReader(formData.Encode())
 	if _, err = c.RequestWithoutData(http.MethodPost, "/computer/createItem",
-		map[string]string{httpdownloader.ContentType: httpdownloader.ApplicationForm}, payload, 200); err == nil {
+		map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, payload, 200); err == nil {
 		payload = GetPayloadForCreateAgent(name)
 		_, err = c.RequestWithoutData(http.MethodPost, "/computer/doCreateItem",
-			map[string]string{httpdownloader.ContentType: httpdownloader.ApplicationForm}, payload, 200)
+			map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, payload, 200)
 	}
 	return
 }

@@ -13,8 +13,6 @@ import (
 	"github.com/verystar/jenkins-client/pkg/core"
 
 	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
-
-	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 )
 
 // PrepareForGetCredentialList only for test
@@ -51,7 +49,7 @@ func PrepareForDeleteCredentialInFolder(roundTripper *mhttp.MockRoundTripper, ro
 func PrepareForCreateCredentialInFolder(roundTripper *mhttp.MockRoundTripper, rootURL, user, password, folder string, payload io.Reader) {
 	api := fmt.Sprintf("%s/job/%s/credentials/store/folder/domain/_/createCredentials", rootURL, folder)
 	request, _ := http.NewRequest(http.MethodPost, api, payload)
-	request.Header.Add(httpdownloader.ContentType, httpdownloader.ApplicationForm)
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	core.PrepareCommonPost(request, "", roundTripper, user, password, rootURL)
 }
 
@@ -59,7 +57,7 @@ func PrepareForCreateCredentialInFolder(roundTripper *mhttp.MockRoundTripper, ro
 func PrepareForUpdateCredentialInFolder(roundTripper *mhttp.MockRoundTripper, rootURL, user, password, folder, id string, payload io.Reader) {
 	api := fmt.Sprintf("%s/job/%s/credentials/store/folder/domain/_/credential/%s/updateSubmit", rootURL, folder, id)
 	request, _ := http.NewRequest(http.MethodPost, api, payload)
-	request.Header.Add(httpdownloader.ContentType, httpdownloader.ApplicationForm)
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	core.PrepareCommonPost(request, "", roundTripper, user, password, rootURL)
 }
 
@@ -85,7 +83,7 @@ func PrepareForCreateCredential(roundTripper *mhttp.MockRoundTripper, rootURL, u
 	payload := strings.NewReader(formData.Encode())
 
 	request, _ := http.NewRequest(http.MethodPost, api, payload)
-	request.Header.Add(httpdownloader.ContentType, httpdownloader.ApplicationForm)
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	core.PrepareCommonPost(request, "", roundTripper, user, password, rootURL)
 }
 

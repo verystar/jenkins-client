@@ -12,8 +12,6 @@ import (
 	"github.com/verystar/jenkins-client/pkg/core"
 
 	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
-
-	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 )
 
 // PrepareForGetJobInputActions only for test
@@ -59,7 +57,7 @@ func PrepareForBuildWithNoParams(roundTripper *mhttp.MockRoundTripper, rootURL, 
 	formData := url.Values{"json": {`{"parameter": []}`}}
 	payload := strings.NewReader(formData.Encode())
 	request, _ = http.NewRequest(http.MethodPost, fmt.Sprintf("%s/job/%s/build", rootURL, jobName), payload)
-	request.Header.Add(httpdownloader.ContentType, httpdownloader.ApplicationForm)
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	response = core.PrepareCommonPost(request, "", roundTripper, user, password, rootURL)
 	response.StatusCode = 201
 	return
@@ -71,7 +69,7 @@ func PrepareForBuildWithParams(roundTripper *mhttp.MockRoundTripper, rootURL, jo
 	formData := url.Values{"json": {`{"parameter": {"name":"name","type":"StringParameterDefinition","value":"value"}}`}}
 	payload := strings.NewReader(formData.Encode())
 	request, _ = http.NewRequest(http.MethodPost, fmt.Sprintf("%s/job/%s/build", rootURL, jobName), payload)
-	request.Header.Add(httpdownloader.ContentType, httpdownloader.ApplicationForm)
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	response = core.PrepareCommonPost(request, "", roundTripper, user, password, rootURL)
 	response.StatusCode = 201
 	return
@@ -266,6 +264,6 @@ func PrepareForCreatePipelineJob(roundTripper *mhttp.MockRoundTripper, rootURL, 
 	payload := strings.NewReader(formData.Encode())
 
 	request, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("%s/view/all/createItem", rootURL), payload)
-	request.Header.Add(httpdownloader.ContentType, httpdownloader.ApplicationForm)
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	core.PrepareCommonPost(request, "", roundTripper, user, password, rootURL)
 }

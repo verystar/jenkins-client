@@ -15,7 +15,6 @@ import (
 
 	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
 
-	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 	"go.uber.org/mock/gomock"
 )
 
@@ -333,7 +332,7 @@ var _ = Describe("job test", func() {
 			jobName := "fakeJob"
 			request, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("%s/job/%s/doDelete", jobClient.URL, jobName), nil)
 			request.Header.Add("CrumbRequestField", "Crumb")
-			request.Header.Add(httpdownloader.ContentType, httpdownloader.ApplicationForm)
+			request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 			response := &http.Response{
 				StatusCode: 200,
 				Proto:      "HTTP/1.1",

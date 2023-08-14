@@ -6,8 +6,6 @@ import (
 	"net/url"
 	"strings"
 
-	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
-
 	"github.com/verystar/jenkins-client/pkg/core"
 
 	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
@@ -44,7 +42,7 @@ func PrepareForCheckNewSource(roundTripper *mhttp.MockRoundTripper, rootURL, use
 
 	request, _ := http.NewRequest(http.MethodPost,
 		fmt.Sprintf("%s/configuration-as-code/checkNewSource", rootURL), strings.NewReader(formValue.Encode()))
-	request.Header.Set(httpdownloader.ContentType, httpdownloader.ApplicationForm)
+	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	response = core.PrepareCommonPost(request, "sample", roundTripper, user, password, rootURL)
 	return
 }
@@ -58,7 +56,7 @@ func PrepareForReplaceSource(roundTripper *mhttp.MockRoundTripper, rootURL, user
 
 	request, _ := http.NewRequest(http.MethodPost,
 		fmt.Sprintf("%s/configuration-as-code/replace", rootURL), strings.NewReader(formValue.Encode()))
-	request.Header.Set(httpdownloader.ContentType, httpdownloader.ApplicationForm)
+	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	response = core.PrepareCommonPostWithResponseCode(request, "sample", http.StatusFound, roundTripper, user, password, rootURL)
 	return
 }

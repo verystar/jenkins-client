@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
-	"log/slog"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -15,10 +13,7 @@ import (
 	"strconv"
 	"strings"
 
-	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 	"github.com/verystar/jenkins-client/pkg/core"
-
-	"moul.io/http2curl"
 )
 
 const (
@@ -162,13 +157,13 @@ func (q *Client) BuildWithParams(jobName string, parameters []ParameterDefinitio
 		}
 
 		_, err = q.RequestWithoutData(http.MethodPost, api,
-			map[string]string{httpdownloader.ContentType: writer.FormDataContentType()}, body, 201)
+			map[string]string{"Content-Type": writer.FormDataContentType()}, body, 201)
 	} else {
 		formData := url.Values{"json": {fmt.Sprintf("{\"parameter\": %s}", string(paramJSON))}}
 		payload := strings.NewReader(formData.Encode())
 
 		_, err = q.RequestWithoutData(http.MethodPost, api,
-			map[string]string{httpdownloader.ContentType: httpdownloader.ApplicationForm}, payload, 201)
+			map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, payload, 201)
 	}
 	return
 }
@@ -224,7 +219,7 @@ func (q *Client) AddParameters(name, parameters string) (err error) {
 		"params": {parameters},
 	}
 	payload := strings.NewReader(formData.Encode())
-	_, err = q.RequestWithoutData(http.MethodPost, api, map[string]string{httpdownloader.ContentType: httpdownloader.ApplicationForm}, payload, 200)
+	_, err = q.RequestWithoutData(http.MethodPost, api, map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, payload, 200)
 	return
 }
 
@@ -334,14 +329,10 @@ func (q *Client) Log(jobName string, history int, start int64) (jobLog Log, err 
 		NextStart: int64(0),
 	}
 
-	if curlCmd, curlErr := http2curl.GetCurlCommand(req); curlErr == nil {
-		core.Logger.Debug("HTTP request as curl", slog.String("cmd", curlCmd.String()))
-	}
-
 	if response, err = client.Do(req); err == nil {
 		code := response.StatusCode
 		var data []byte
-		data, err = ioutil.ReadAll(response.Body)
+		data, err = io.ReadAll(response.Body)
 		if code == 200 {
 			jobLog.Text = string(data)
 
@@ -381,7 +372,7 @@ func (q *Client) CreateJobInFolder(jobPayload CreateJobPayload, path string) (er
 	api := fmt.Sprintf("/view/all%s/createItem", path)
 	var code int
 	code, err = q.RequestWithoutData(http.MethodPost, api,
-		map[string]string{httpdownloader.ContentType: httpdownloader.ApplicationForm}, payload, 200)
+		map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, payload, 200)
 	if code == 302 {
 		err = nil
 	}
@@ -397,7 +388,7 @@ func (q *Client) Delete(jobName string) (err error) {
 	jobName = ParseJobPath(jobName)
 	api := fmt.Sprintf("%s/doDelete", jobName)
 	header := map[string]string{
-		httpdownloader.ContentType: httpdownloader.ApplicationForm,
+		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
 	if statusCode, _, err = q.Request(http.MethodPost, api, header, nil); err == nil {

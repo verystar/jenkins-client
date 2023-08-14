@@ -11,8 +11,6 @@ import (
 	"github.com/verystar/jenkins-client/pkg/core"
 
 	"github.com/verystar/jenkins-client/pkg/mock/mhttp"
-
-	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 )
 
 // PrepareForComputerListRequest only for test
@@ -93,12 +91,12 @@ func PrepareForComputerCreateRequest(roundTripper *mhttp.MockRoundTripper, rootU
 	}
 	payload := strings.NewReader(formData.Encode())
 	request, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("%s/computer/createItem", rootURL), payload)
-	request.Header.Add(httpdownloader.ContentType, httpdownloader.ApplicationForm)
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	core.PrepareCommonPost(request, "", roundTripper, user, password, rootURL)
 
 	payload = GetPayloadForCreateAgent(name)
 	request, _ = http.NewRequest(http.MethodPost, fmt.Sprintf("%s/computer/doCreateItem", rootURL), payload)
-	request.Header.Add(httpdownloader.ContentType, httpdownloader.ApplicationForm)
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	core.PrepareCommonPost(request, "", roundTripper, user, password, rootURL)
 }
 

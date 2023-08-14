@@ -12,8 +12,6 @@ import (
 	"github.com/verystar/jenkins-client/pkg/core"
 
 	"github.com/verystar/jenkins-client/pkg/util"
-
-	httpdownloader "github.com/linuxsuren/http-downloader/pkg"
 )
 
 // Client for connect the user
@@ -48,14 +46,14 @@ func (q *Client) EditDesc(description string) (err error) {
 	formData.Add("description", description)
 	payload := strings.NewReader(formData.Encode())
 	_, err = q.RequestWithoutData(http.MethodPost, fmt.Sprintf("/user/%s/submitDescription", q.UserName),
-		map[string]string{httpdownloader.ContentType: httpdownloader.ApplicationForm}, payload, 200)
+		map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, payload, 200)
 	return
 }
 
 // Delete will remove a user from Jenkins
 func (q *Client) Delete(username string) (err error) {
 	_, err = q.RequestWithoutData(http.MethodPost, fmt.Sprintf("/securityRealm/user/%s/doDelete", username),
-		map[string]string{httpdownloader.ContentType: httpdownloader.ApplicationForm}, nil, 200)
+		map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, nil, 200)
 	return
 }
 
@@ -94,7 +92,7 @@ func (q *Client) Create(username, password string) (user *ForCreate, err error) 
 
 	payload, user = genSimpleUserAsPayload(username, password)
 	code, err = q.RequestWithoutData(http.MethodPost, "/securityRealm/createAccountByAdmin",
-		map[string]string{httpdownloader.ContentType: httpdownloader.ApplicationForm}, payload, 200)
+		map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, payload, 200)
 	if code == 302 {
 		err = nil
 	}
@@ -118,7 +116,7 @@ func (q *Client) CreateToken(targetUser, newTokenName string) (status *Token, er
 	payload := strings.NewReader(formData.Encode())
 
 	err = q.RequestWithData(http.MethodPost, api,
-		map[string]string{httpdownloader.ContentType: httpdownloader.ApplicationForm}, payload, 200, &status)
+		map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, payload, 200, &status)
 	return
 }
 

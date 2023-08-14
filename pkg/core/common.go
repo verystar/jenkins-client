@@ -15,10 +15,6 @@ import (
 	"time"
 
 	"github.com/verystar/jenkins-client/pkg/util"
-	"moul.io/http2curl"
-
-	httpdownloader "github.com/linuxsuren/http-downloader/pkg/net"
-	ext "github.com/verystar/jenkins-client/internal/cobra-extension/version"
 )
 
 // language is for global Accept Language
@@ -51,6 +47,27 @@ type JenkinsCrumb struct {
 	Crumb             string
 }
 
+// SetProxy set the proxy for a http
+func SetProxy(proxy, proxyAuth string, tr *http.Transport) (err error) {
+	if proxy == "" {
+		return
+	}
+
+	var proxyURL *url.URL
+	if proxyURL, err = url.Parse(proxy); err != nil {
+		return
+	}
+
+	tr.Proxy = http.ProxyURL(proxyURL)
+
+	if proxyAuth != "" {
+		basicAuth := "Basic " + base64.StdEncoding.EncodeToString([]byte(proxyAuth))
+		tr.ProxyConnectHeader = http.Header{}
+		tr.ProxyConnectHeader.Add("Proxy-Authorization", basicAuth)
+	}
+	return
+}
+
 // GetClient get the default http Jenkins client
 func (j *JenkinsCore) GetClient() (client *http.Client) {
 	var roundTripper http.RoundTripper
@@ -60,7 +77,7 @@ func (j *JenkinsCore) GetClient() (client *http.Client) {
 		tr := &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: j.InsecureSkipVerify},
 		}
-		if err := httpdownloader.SetProxy(j.Proxy, j.ProxyAuth, tr); err != nil {
+		if err := SetProxy(j.Proxy, j.ProxyAuth, tr); err != nil {
 			log.Fatal(err)
 		}
 		roundTripper = tr
@@ -95,7 +112,7 @@ func (j *JenkinsCore) AuthHandle(request *http.Request) (err error) {
 
 	// not add the User-Agent for tests
 	if j.RoundTripper == nil {
-		request.Header.Set("User-Agent", ext.GetCombinedVersion())
+		request.Header.Set("User-Agent", "jcli; v1.0.0")
 	}
 
 	j.ProxyHandle(request)
@@ -350,9 +367,6 @@ func (j *JenkinsCore) RequestWithResponse(method, api string, headers map[string
 
 	client := j.GetClient()
 
-	if curlCmd, curlErr := http2curl.GetCurlCommand(req); curlErr == nil {
-		Logger.Debug("HTTP request as curl", slog.String("cmd", curlCmd.String()))
-	}
 	return client.Do(req)
 }
 
@@ -383,10 +397,6 @@ func (j *JenkinsCore) Request(method, api string, headers map[string]string, pay
 
 	for k, v := range headers {
 		req.Header.Add(k, v)
-	}
-
-	if curlCmd, curlErr := http2curl.GetCurlCommand(req); curlErr == nil {
-		Logger.Debug("HTTP request as curl", slog.String("cmd", curlCmd.String()))
 	}
 
 	client := j.GetClient()
